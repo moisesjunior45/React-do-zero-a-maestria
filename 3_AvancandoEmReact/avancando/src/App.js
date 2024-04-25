@@ -86,14 +86,14 @@ function App() {
       <ChangeMessageState handleMessage={handleMessage} />
       {/* Desafio 4 */}
       <Desafio4 />
-      {pessoas.map((pessoa) => [
+      {pessoas.map((pessoa) => (
         <Desafio4
           key={pessoa.id}
           nome={pessoa.nome}
           idade={pessoa.idade}
           profissao={pessoa.profissao}
         />
-      ])}
+      ))}
     </div>
   );
 }
