@@ -39,6 +39,31 @@
       "id": "807c",
       "name": "Mesa",
       "price": "300"
+    },
+    {
+      "id": "b2d6",
+      "name": "Mouse",
+      "price": "60"
+    },
+    {
+      "id": "6a58",
+      "name": "",
+      "price": ""
+    },
+    {
+      "id": "03f7",
+      "name": "",
+      "price": ""
+    },
+    {
+      "id": "5ba0",
+      "name": "",
+      "price": ""
+    },
+    {
+      "id": "01f5",
+      "name": "Camisa Polo",
+      "price": "150"
     }
   ]
 }
