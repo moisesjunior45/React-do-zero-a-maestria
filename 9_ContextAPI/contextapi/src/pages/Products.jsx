@@ -1,10 +1,12 @@
-import React from "react";
-import "./Products.css";
+  import { useContext } from "react";
+  import { CounterContext } from "../context/CounterContext";
 
 const Products = () => {
+  const { counter } = useContext(CounterContext);
   return (
     <>
-      <h1>Produtos</h1>
+      <h1>Sobre</h1>
+      <p>Valor do contador: {counter}</p>
     </>
   );
 };
