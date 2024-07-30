@@ -5,7 +5,7 @@ const Products = () => {
   const { counter } = useContext(CounterContext);
   return (
     <>
-      <h1>Sobre</h1>
+      <h1>Produtos</h1>
       <p>Valor do contador: {counter}</p>
     </>
   );
