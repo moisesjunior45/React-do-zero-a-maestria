@@ -1,6 +1,11 @@
-import React, { useState } from 'react';
 import './NavBar.css';
+
+import React, { useState } from 'react';
 import { NavLink } from 'react-router-dom';
+
+import { useAuthentication } from "../hooks/useAuthentication";
+
+import { useAuthValue } from "../context/AuthContext";
 
 const NavBar = () => {
     const [isOpen, setIsOpen] = useState(false);
@@ -9,6 +14,8 @@ const NavBar = () => {
     const closeMenu = () => {
         setIsOpen(false);
     };
+
+    const { user } = useAuthValue();
 
     return (
         <div className="navbar">
@@ -22,16 +29,35 @@ const NavBar = () => {
                             Home
                         </NavLink>
                     </li>
-                    <li>
-                        <NavLink to="/login" onClick={closeMenu}>
-                            Entrar
-                        </NavLink>
-                    </li>
-                    <li>
-                        <NavLink to="/register" onClick={closeMenu}>
-                            Cadastrar
-                        </NavLink>
-                    </li>
+                    {!user && (
+                        <>
+                            <li>
+                                <NavLink to="/login" onClick={closeMenu}>
+                                    Entrar
+                                </NavLink>
+                            </li>
+                            <li>
+                                <NavLink to="/register" onClick={closeMenu}>
+                                    Cadastrar
+                                </NavLink>
+                            </li>
+                        </>
+                    )}
+                    {user && (
+                        <>
+                            <li>
+                                <NavLink to={"/posts/create"} onClick={closeMenu}>
+                                    Novo Post
+                                </NavLink>
+                            </li>
+
+                            <li>
+                                <NavLink to={"/dashboard"} onClick={closeMenu}>
+                                    Dashboard
+                                </NavLink>
+                            </li>
+                        </>
+                    )}
                     <li>
                         <NavLink to="/about" onClick={closeMenu}>
                             Sobre
