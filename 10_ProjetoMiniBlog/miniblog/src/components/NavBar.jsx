@@ -16,9 +16,10 @@ const NavBar = () => {
     };
 
     const { user } = useAuthValue();
+    const { logout } = useAuthentication();
 
     return (
-        <div className="navbar">
+        <nav className="navbar">
             <div className="brand">
                 Mini <span>Blog</span>
             </div>
@@ -63,6 +64,11 @@ const NavBar = () => {
                             Sobre
                         </NavLink>
                     </li>
+                    {user && (
+                        <li>
+                            <button onClick={logout}>Sair</button>
+                        </li>
+                    )}
                 </div>
             </ul>
             <div
@@ -71,7 +77,7 @@ const NavBar = () => {
             >
                 <div className="bar"></div>
             </div>
-        </div>
+        </nav>
     );
 };
 
