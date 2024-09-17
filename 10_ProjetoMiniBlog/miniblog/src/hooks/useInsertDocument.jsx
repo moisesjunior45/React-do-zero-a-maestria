@@ -11,7 +11,7 @@ const insertReducer = (state, action) => {
   switch (action.type) {
     case "LOADING":
       return { loading: true, error: null };
-    case "INSERT_DOC":
+    case "INSERTED_DOC":
       return { loading: false, error: null };
     case "ERROR":
       return { loading: false, error: action.payload };
@@ -23,7 +23,7 @@ const insertReducer = (state, action) => {
 export const useInsertDocument = (docCollection) => {
   const [response, dispatch] = useReducer(insertReducer, initialState);
 
-  //   deal with memory leak
+  // deal with memory leak
   const [cancelled, setCancelled] = useState(false);
 
   const checkCancelBeforeDispatch = (action) => {
@@ -33,9 +33,7 @@ export const useInsertDocument = (docCollection) => {
   };
 
   const insertDocument = async (document) => {
-    checkCancelBeforeDispatch({
-      type: "LOADING",
-    });
+    checkCancelBeforeDispatch({ type: "LOADING" });
 
     try {
       const newDocument = { ...document, createdAt: Timestamp.now() };
@@ -47,13 +45,10 @@ export const useInsertDocument = (docCollection) => {
 
       checkCancelBeforeDispatch({
         type: "INSERTED_DOC",
-        payload: insertDocument,
+        payload: insertedDocument,
       });
     } catch (error) {
-      checkCancelBeforeDispatch({
-        type: "ERROR",
-        payload: error.message,
-      });
+      checkCancelBeforeDispatch({ type: "ERROR", payload: error.message });
     }
   };
 
