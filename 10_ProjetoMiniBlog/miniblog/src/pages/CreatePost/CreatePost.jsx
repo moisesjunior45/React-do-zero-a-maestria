@@ -60,7 +60,7 @@ const CreatePost = () => {
     });
 
     // redirect to home page
-    
+    navigate("/");
   };
 
   return (
@@ -118,6 +118,7 @@ const CreatePost = () => {
           </button>
         )}
         {response.error && <p className="error">{response.error}</p>}
+        {formError && <p className="error">{formError}</p>}
       </form>
     </div>
   );
