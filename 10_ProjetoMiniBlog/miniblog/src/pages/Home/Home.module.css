@@ -29,3 +29,12 @@
 .noposts a {
   padding: 10px 25px;
 }
+
+@media (max-width: 600px) {
+  .home h1 {
+    text-align: center;
+  }
+  .search_form {
+    width: 80%;
+  }
+}
