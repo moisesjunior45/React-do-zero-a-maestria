@@ -21,7 +21,7 @@ const NavBar = () => {
     return (
         <nav className="navbar">
             <div className="brand">
-                Mini <span>Blog</span>
+                Universo <span>Criativo</span>
             </div>
             <ul className={`nav-items ${isOpen ? 'open' : ''}`}>
                 <div className="links-list">
