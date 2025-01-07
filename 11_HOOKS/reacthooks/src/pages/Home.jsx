@@ -1,11 +1,16 @@
+
+// useContext
+import { useContext } from "react";
+
+// componentes
 import { HookUseEffect } from "../components/HookUseEffect";
 import { HookUseReducer } from "../components/HookUseReducer";
 import { HookUseState } from "../components/HookUseState";
 import { HookUseRef } from "../components/HookUseRef";
-
-// useContext
-import { useContext } from "react";
 import { SomeContext } from "../components/HookUseContext";
+import { HookUseCallback } from "../components/HookUseCallback";
+import { HookUseMemo } from "../components/HookUseMemo";
+import { HookUseLayoutEffect } from "../components/HookUseLayoutEffect";
 
 export function Home() {
   const { contextValue } = useContext(SomeContext);
@@ -19,6 +24,9 @@ export function Home() {
       <p>Valor do context: {contextValue}</p>
       <hr />
       <HookUseRef />
+      <HookUseCallback />
+      <HookUseMemo />
+      <HookUseLayoutEffect />
     </>
   );
 }
