@@ -11,6 +11,8 @@ import { SomeContext } from "../components/HookUseContext";
 import { HookUseCallback } from "../components/HookUseCallback";
 import { HookUseMemo } from "../components/HookUseMemo";
 import { HookUseLayoutEffect } from "../components/HookUseLayoutEffect";
+import { HookUseImperativeHandle } from "../components/HookUseImperativeHandle";
+import { HookCustom } from "../components/HookCustom";
 
 export function Home() {
   const { contextValue } = useContext(SomeContext);
@@ -27,6 +29,8 @@ export function Home() {
       <HookUseCallback />
       <HookUseMemo />
       <HookUseLayoutEffect />
+      <HookUseImperativeHandle />
+      <HookCustom />
     </>
   );
 }
