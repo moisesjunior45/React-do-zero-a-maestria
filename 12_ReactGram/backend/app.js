@@ -1,28 +1,39 @@
-require("dotenv").config();
+// Importar dependências essenciais
+import express from "express";
+import path from "path";
+import cors from "cors";
+import { fileURLToPath } from "url";
 
-const express = require("express");
-const path = require("path");
-const cors = require("cors");
+// Importar rotas e conexão do banco de dados
+import router from "./routes/Router.js";
+import conn from "./config/db.js";
 
 const port = process.env.PORT;
 
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
 const app = express();
 
-// config JSON and form data response
+// Config JSON and form data response
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
 // Solve CORS
-app.use(cors({ credentials: true, origin: "https://localhost:5173" }));
+app.use(cors({ credentials: true, origin: "http://localhost:5183" }));
 
 // Upload directory
 app.use("/uploads", express.static(path.join(__dirname, "/uploads")));
 
-// DB connection
-// require("config/db.js");
+// db connection
+conn();
+
+// test route
+app.get("/", (req, res) => {
+  res.send("API Working!");
+});
 
 // routes
-const router = require("./routes/Router.js");
 app.use(router);
 
 app.listen(port, () => {
