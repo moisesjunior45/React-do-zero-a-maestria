@@ -2,7 +2,7 @@ import express from "express";
 const router = express.Router();
 
 // Controller
-import { register, login } from "../controllers/UserController.js";
+import { register, login, getCurrentUser } from "../controllers/UserController.js";
 
 // Middlewares
 import validate from "../middlewares/handleValidation.js";
@@ -10,6 +10,7 @@ import {
   userCreateValidation,
   loginValidation,
 } from "../middlewares/userValidations.js";
+import authGuard from "../middlewares/authGuard.js";
 
 // Routes
 const userRoutes = router.post(
@@ -20,5 +21,6 @@ const userRoutes = router.post(
 );
 
 router.post("/login", loginValidation(), validate, login);
+router.get("/profile", authGuard, getCurrentUser);
 
 export default userRoutes;
