@@ -1,4 +1,4 @@
-import dotenv from 'dotenv';
+import dotenv from "dotenv";
 dotenv.config();
 
 import User from "../models/User.js";
@@ -51,4 +51,28 @@ const register = async (req, res) => {
   });
 };
 
-export { register };
+const login = async (req, res) => {
+  const { email, password } = req.body;
+
+  const user = await User.findOne({ email });
+
+  if (!user) {
+    res.status(422).json({ errors: ["Usuário não encontrado."] });
+    return;
+  }
+
+  // Check if password match
+  if (!bcrypt.compare(password, user.password)) {
+    res.status(422).json({ errors: ["Senha inválida."] });
+    return;
+  }
+
+  // Return user with token
+  res.status(201).json({
+    _id: user._id,
+    profileImage: user.profileImage,
+    token: generateToken(user._id),
+  });
+};
+
+export { register, login };
