@@ -2,15 +2,22 @@ import express from "express";
 const router = express.Router();
 
 // Controller
-import { register, login, getCurrentUser } from "../controllers/UserController.js";
+import {
+  register,
+  login,
+  getCurrentUser,
+  update,
+} from "../controllers/UserController.js";
 
 // Middlewares
 import validate from "../middlewares/handleValidation.js";
 import {
   userCreateValidation,
   loginValidation,
+  userUpdateValidation,
 } from "../middlewares/userValidations.js";
 import authGuard from "../middlewares/authGuard.js";
+import { imageUpload } from "../middlewares/imageUpload.js";
 
 // Routes
 const userRoutes = router.post(
@@ -22,5 +29,12 @@ const userRoutes = router.post(
 
 router.post("/login", loginValidation(), validate, login);
 router.get("/profile", authGuard, getCurrentUser);
+router.put(
+  "/",
+  authGuard,
+  userUpdateValidation(),
+  validate,
+  imageUpload.single("profileImage"), update
+);
 
 export default userRoutes;
