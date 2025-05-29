@@ -7,6 +7,7 @@ import {
   login,
   getCurrentUser,
   update,
+  getUserById,
 } from "../controllers/UserController.js";
 
 // Middlewares
@@ -34,7 +35,9 @@ router.put(
   authGuard,
   userUpdateValidation(),
   validate,
-  imageUpload.single("profileImage"), update
+  imageUpload.single("profileImage"),
+  update
 );
+router.get("/:id", getUserById);
 
 export default userRoutes;
