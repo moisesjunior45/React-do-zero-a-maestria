@@ -7,6 +7,7 @@ import {
   deletePhoto,
   getAllPhotos,
   getUserPhotos,
+  getPhotoById,
 } from "../controllers/PhotoController.js";
 
 // Middlewares
@@ -28,5 +29,6 @@ const photoRoutes = router.post(
 router.delete("/:id", authGuard, deletePhoto);
 router.get("/", authGuard, getAllPhotos);
 router.get("/user/:id", authGuard, getUserPhotos);
+router.get("/:id", authGuard, getPhotoById);
 
 export default photoRoutes;

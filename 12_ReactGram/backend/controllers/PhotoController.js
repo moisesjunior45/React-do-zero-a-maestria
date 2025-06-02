@@ -82,4 +82,24 @@ const getUserPhotos = async (req, res) => {
   return res.status(200).json(photos);
 };
 
-export { insertPhoto, deletePhoto, getAllPhotos, getUserPhotos };
+// Get photo by ID
+const getPhotoById = async (req, res) => {
+  const { id } = req.params;
+
+  // check if ID is valid
+  if (!mongoose.Types.ObjectId.isValid(id)) {
+    return res.status(400).json({ errors: ["Foto não encontrada!"] });
+  }
+
+  const photo = await Photo.findById(id);
+
+  // check if photo exists
+  if (!photo) {
+    res.status(404).json({ errors: ["Foto não encontrada!"] });
+    return;
+  }
+
+  res.status(200).json(photo);
+};
+
+export { insertPhoto, deletePhoto, getAllPhotos, getUserPhotos, getPhotoById };
