@@ -9,6 +9,7 @@ import {
   getUserPhotos,
   getPhotoById,
   updatePhoto,
+  likePhoto,
 } from "../controllers/PhotoController.js";
 
 // Middlewares
@@ -32,5 +33,6 @@ router.get("/", authGuard, getAllPhotos);
 router.get("/user/:id", authGuard, getUserPhotos);
 router.get("/:id", authGuard, getPhotoById);
 router.put("/:id", authGuard, photoUpdateValidation(), validate, updatePhoto);
+router.put("/like/:id", authGuard, likePhoto);
 
 export default photoRoutes;
