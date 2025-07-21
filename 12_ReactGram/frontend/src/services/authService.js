@@ -8,13 +8,14 @@ const register = async (data) => {
     const res = await fetch(`${api}/users/register`, config);
     const result = await res.json();
 
-    if (!result.errors) {
+    if (result._id) {
       localStorage.setItem("user", JSON.stringify(result));
     }
 
     return result;
   } catch (error) {
     console.error(error);
+    return { errors: [error.message] };
   }
 };
 
@@ -28,16 +29,17 @@ const login = async (data) => {
   const config = requestConfig("POST", data);
 
   try {
-    const res = await fetch(api + "/users/login", config)
-      .then((res) => res.json)
-      .catch((err) => err);
+    const res = await fetch(`${api}/users/login`, config);
+    const result = await res.json();
 
-    if (res) {
-      localStorage.setItem("user", JSON.stringify(res));
+    if (result._id) {
+      localStorage.setItem("user", JSON.stringify(result));
     }
-    return res;
+
+    return result;
   } catch (error) {
-    console.log(error);
+    console.error(error);
+    return { errors: [error.message] };
   }
 };
 

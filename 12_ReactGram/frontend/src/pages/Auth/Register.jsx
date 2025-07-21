@@ -51,24 +51,28 @@ export default function Register() {
           placeholder="Nome"
           onChange={(e) => setName(e.target.value)}
           value={name || ""}
+          required
         />
         <input
           type="email"
           placeholder="E-mail"
           onChange={(e) => setEmail(e.target.value)}
           value={email || ""}
+          required
         />
         <input
           type="password"
           placeholder="Senha"
           onChange={(e) => setPassword(e.target.value)}
           value={password || ""}
+          required
         />
         <input
           type="password"
           placeholder="Confirme a senha"
           onChange={(e) => setConfirmPassword(e.target.value)}
           value={confirmPassword || ""}
+          required
         />
         {!loading && <input type="submit" value="Cadastrar" />}
         {loading && <input type="submit" value="Aguarde..." disabled />}
