@@ -1,6 +1,7 @@
 import "./EditProfile.css";
 
 import { uploads } from "../../utils/config";
+import { updateProfile } from "../../slices/userSlice";
 
 // Hooks
 import { useEffect, useState } from "react";
@@ -39,8 +40,36 @@ export default function EditProfile() {
     }
   }, [user]);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+
+    // Gather user data from states
+    const userData = {
+      name,
+    };
+
+    if (profileImage) {
+      userData.profileImage = profileImage;
+    }
+
+    if (bio) {
+      userData.bio = bio;
+    }
+
+    if (password) {
+      userData.password = password;
+    }
+
+    // build form data
+    const formData = new FormData();
+
+    Object.keys(userData).forEach((key) => formData.append(key, userData[key]));
+
+    await dispatch(updateProfile(formData));
+
+    setTimeout(() => {
+      dispatch(resetMessage());
+    }, 2000);
   };
 
   const handleFile = (e) => {
@@ -61,7 +90,7 @@ export default function EditProfile() {
       </p>
       {(user.profileImage || previewImage) && (
         <img
-        className="profile-image"
+          className="profile-image"
           src={
             previewImage
               ? URL.createObjectURL(previewImage)
@@ -100,7 +129,10 @@ export default function EditProfile() {
             value={password || ""}
           />
         </label>
-        <input type="submit" value="Atualizar" />
+        {!loading && <input type="submit" value="Atualizar" />}
+        {loading && <input type="submit" value="Aguarde..." disabled />}
+        {error && <Message msg={error} type="error" />}
+        {message && <Message msg={message} type="success" />}
       </form>
     </div>
   );

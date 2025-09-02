@@ -22,8 +22,14 @@ const imageStorage = multer.diskStorage({
 const imageUpload = multer({
   storage: imageStorage,
   fileFilter(req, file, cb) {
-    if (!file.originalname.match(/\.(png|jpg|PNG|JPG)$/)) {
-      return cb(new Error("Por favor, envie apenas png ou jpg!"));
+    const allowedExtensions = /\.(png|jpg|jpeg|webp)$/i;
+
+    if (!file.originalname.match(allowedExtensions)) {
+      return cb(
+        new Error(
+          "Por favor, envie apenas imagens nos formatos png, jpg, jpeg ou webp!"
+        )
+      );
     }
     cb(undefined, true);
   },
