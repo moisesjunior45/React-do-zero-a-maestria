@@ -14,12 +14,24 @@ import { useParams } from "react-router-dom";
 
 // redux
 import { getUserDetails } from "../../slices/userSlice";
+import { publishPhoto, resetMessage } from "../../slices/photoSlice";
 
 export default function Profile() {
   const { id } = useParams();
+
   const dispatch = useDispatch();
+
   const { user, loading } = useSelector((state) => state.user);
   const { user: userAuth } = useSelector((state) => state.auth);
+  const {
+    photo,
+    loading: loadingPhoto,
+    message: messagePhoto,
+    error: errorPhoto,
+  } = useSelector((state) => state.photo);
+
+  const [title, setTitle] = useState("");
+  const [image, setImage] = useState("");
 
   //   New form and edit form refs
   const newPhotoForm = useRef();
@@ -30,8 +42,37 @@ export default function Profile() {
     dispatch(getUserDetails(id));
   }, [dispatch, id]);
 
+  const handleFile = (e) => {
+    // image preview
+    const image = e.target.files[0];
+
+    setImage(image);
+  };
+
   const submitHandle = (e) => {
     e.preventDefault();
+
+    const photoData = {
+      title,
+      image,
+    };
+
+    // build form data
+    const formData = new FormData();
+
+    const photoFormData = Object.keys(photoData).forEach((key) =>
+      formData.append(key, photoData[key])
+    );
+
+    formData.append("photo", photoFormData);
+
+    dispatch(publishPhoto(formData));
+
+    setTitle("");
+
+    setTimeout(() => {
+      dispatch(resetMessage());
+    }, 2000);
   };
 
   if (loading) {
@@ -56,14 +97,24 @@ export default function Profile() {
           <form onSubmit={submitHandle}>
             <label>
               <span>Título para a foto:</span>
-              <input type="text" placeholder="Insira um título" />
+              <input
+                type="text"
+                placeholder="Insira um título"
+                onChange={(e) => setTitle(e.target.value)}
+                value={title || ""}
+              />
             </label>
             <label>
               <span>Imagem:</span>
-              <input type="file" />
+              <input type="file" onChange={handleFile} />
             </label>
-            <input type="submit" value="Postar" />
+            {!loadingPhoto && <input type="submit" value="Postar" />}
+            {loadingPhoto && (
+              <input type="submit" disabled value="Aguarde..." />
+            )}
           </form>
+          {errorPhoto && <Message msg={errorPhoto} type="error" />}
+          {messagePhoto && <Message msg={messagePhoto} type="success" />}
         </>
       )}
     </div>
