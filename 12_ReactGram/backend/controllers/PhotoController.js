@@ -177,7 +177,7 @@ const commentPhoto = async (req, res) => {
   const userComment = {
     comment,
     userName: user.name,
-    userImage: user.image,
+    profileImage: user.profileImage,
     userId: user._id,
   };
 
