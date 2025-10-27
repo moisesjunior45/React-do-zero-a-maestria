@@ -11,6 +11,7 @@ import PhotoItem from "../../components/PhotoItem/PhotoItem";
 import { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
+import { useResetComponentMessage } from "../../hooks/useResetComponentMessage";
 
 // Redux
 import { getPhoto, like } from "../../slices/photoSlice";
@@ -20,6 +21,8 @@ export default function Photo() {
   const { id } = useParams();
 
   const dispatch = useDispatch();
+
+  const resetMessage = useResetComponentMessage(dispatch);
 
   const { user } = useSelector((state) => state.auth);
   const { photo, loading, error, message } = useSelector(
@@ -35,6 +38,8 @@ export default function Photo() {
 
   const handleLike = () => {
     dispatch(like(photo._id));
+
+    resetMessage();
   };
 
   if (loading) {
@@ -45,6 +50,10 @@ export default function Photo() {
     <div id="photo">
       <PhotoItem photo={photo} />
       <LikeContainer photo={photo} user={user} handleLike={handleLike} />
+      <div className="messageContainer">
+        {error && <Message msg={error} type="error" />}
+        {message && <Message msg={message} type="success" />}
+      </div>
     </div>
   );
 }
