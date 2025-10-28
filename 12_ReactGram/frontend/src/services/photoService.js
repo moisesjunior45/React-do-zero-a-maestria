@@ -84,6 +84,29 @@ const like = async (id, token) => {
   }
 };
 
+// Toggle like (like or unlike)
+const toggleLike = async (photoId, hasLiked, token) => {
+  const config = requestConfig("PUT", null, token);
+
+  const endpoint = hasLiked
+    ? `${api}/photos/unlike/${photoId}`
+    : `${api}/photos/like/${photoId}`;
+
+  try {
+    const res = await fetch(endpoint, config);
+    const result = await res.json();
+
+    if (!res.ok) {
+      throw new Error(result.errors?.[0] || "Erro ao curtir/descurtir");
+    }
+
+    return result;
+  } catch (error) {
+    console.error("Erro no toggleLike:", error.message);
+    return { errors: [error.message] };
+  }
+};
+
 // Add comment to a photo
 const comment = async (data, id, token) => {
   const config = requestConfig("PUT", data, token);
@@ -136,6 +159,7 @@ const photoService = {
   comment,
   getPhotos,
   searchPhotos,
+  toggleLike,
 };
 
 export default photoService;

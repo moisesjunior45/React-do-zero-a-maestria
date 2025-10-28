@@ -89,11 +89,19 @@ export const getPhoto = createAsyncThunk(
 );
 
 // Like a photo
-export const like = createAsyncThunk("photo/like", async (id, thunkAPI) => {
-  const token = thunkAPI.getState().auth.user.token;
-  const data = await photoService.like(id, token);
-  return data;
-});
+export const like = createAsyncThunk(
+  "photo/like",
+  async ({ photoId, hasLiked }, thunkAPI) => {
+    const token = thunkAPI.getState().auth.user.token;
+    const data = await photoService.toggleLike(photoId, hasLiked, token);
+
+    if (data.errors) {
+      return thunkAPI.rejectWithValue(data.errors[0]);
+    }
+
+    return data;
+  }
+);
 
 // comment a photo
 export const comment = createAsyncThunk(
@@ -228,21 +236,27 @@ export const photoSlice = createSlice({
         state.photo = action.payload;
       })
       .addCase(like.fulfilled, (state, action) => {
-        state.loading = false;
-        state.success = true;
-        state.error = null;
+        const payload = action.payload;
+        if (!payload || !payload.userId || !payload.photoId) return;
 
-        if (state.photo.likes) {
-          state.photo.likes.push(action.payload.userId);
+        const { userId, photoId, removed } = payload;
+
+        if (state.photo._id === photoId) {
+          state.photo.likes = removed
+            ? state.photo.likes.filter((id) => id !== userId)
+            : [...state.photo.likes, userId];
         }
 
-        state.photos.map((photo) => {
-          if (photo._id === action.payload.photoId) {
-            return photo.likes.push(action.payload.userId);
+        state.photos = state.photos.map((photo) => {
+          if (photo._id === photoId) {
+            photo.likes = removed
+              ? photo.likes.filter((id) => id !== userId)
+              : [...photo.likes, userId];
           }
           return photo;
         });
-        state.message = action.payload.message;
+
+        state.message = payload.message;
       })
       .addCase(like.rejected, (state, action) => {
         state.loading = false;

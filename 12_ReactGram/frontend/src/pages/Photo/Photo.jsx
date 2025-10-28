@@ -38,8 +38,10 @@ export default function Photo() {
 
   // Insert a like
   const handleLike = () => {
-    dispatch(like(photo._id));
+    if (!photo || !photo._id || !user) return;
 
+    const hasLiked = photo.likes?.includes(user._id);
+    dispatch(like({ photoId: photo._id, hasLiked }));
     resetMessage();
   };
 

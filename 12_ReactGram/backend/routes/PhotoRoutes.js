@@ -12,6 +12,7 @@ import {
   likePhoto,
   commentPhoto,
   searchPhotos,
+  unlikePhoto,
 } from "../controllers/PhotoController.js";
 
 // Middlewares
@@ -41,6 +42,7 @@ router.get("/search", authGuard, searchPhotos);
 router.get("/:id", authGuard, getPhotoById);
 router.put("/:id", authGuard, photoUpdateValidation(), validate, updatePhoto);
 router.put("/like/:id", authGuard, likePhoto);
+router.put("/unlike/:id", authGuard, unlikePhoto);
 router.put(
   "/comment/:id",
   authGuard,

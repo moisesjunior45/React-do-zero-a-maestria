@@ -8,10 +8,11 @@ export default function LikeContainer({ photo, user, handleLike }) {
       {photo.likes && user && (
         <>
           {photo.likes.includes(user._id) ? (
-            <BsHeartFill />
+            <BsHeartFill onClick={() => handleLike(photo)} />
           ) : (
             <BsHeart onClick={() => handleLike(photo)} />
           )}
+
           <p>{photo.likes.length} like(s)</p>
         </>
       )}
