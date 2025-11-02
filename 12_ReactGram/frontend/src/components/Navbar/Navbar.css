@@ -5,6 +5,15 @@
   background-color: #000;
   border-bottom: 1px solid #363636;
   padding: 0.1em 1em;
+  position: relative;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+}
+
+.logo {
+  font-weight: bold;
+  background: linear-gradient(45deg, #f58529, #dd2a7b, #8134af, #515bd4);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
 #search-form {
@@ -24,6 +33,17 @@
   border-radius: 5px;
   width: 100%;
   margin: 0;
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.2);
+}
+
+#nav-links li a,
+#nav-links span {
+  transition: color 0.3s ease;
+}
+
+#nav-links li a:hover,
+#nav-links span:hover {
+  color: #1da1f2;
 }
 
 #nav-links {
@@ -41,4 +61,56 @@
 
 #nav-links svg {
   font-size: 1.5em;
+}
+
+.menu-toggle {
+  display: none;
+  font-size: 2em;
+  color: #fff;
+  cursor: pointer;
+}
+
+@media (max-width: 768px) {
+  #search-form {
+    display: none;
+  }
+
+  .menu-toggle {
+    display: block;
+  }
+
+  #nav-links {
+    display: none;
+    flex-direction: column;
+    position: absolute;
+    top: 60px;
+    right: 0;
+    background: #000;
+    width: 200px;
+    padding: 1em;
+    border-left: 1px solid #363636;
+    transform: translateX(100%);
+    opacity: 0;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+  }
+
+  #nav-links.active {
+    display: flex;
+    animation: slideIn 0.3s ease forwards;
+  }
+
+  @keyframes slideIn {
+    from {
+      transform: translateX(100%);
+      opacity: 0;
+    }
+    to {
+      transform: translateX(0);
+      opacity: 1;
+    }
+  }
+
+  #nav-links li {
+    margin: 1em 0;
+  }
 }

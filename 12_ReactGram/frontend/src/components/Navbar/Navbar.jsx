@@ -7,6 +7,7 @@ import {
   BsHouseDoorFill,
   BsFillPersonFill,
   BsFillCameraFill,
+  BsList,
 } from "react-icons/bs";
 
 import { useState } from "react";
@@ -24,6 +25,7 @@ export default function Navbar() {
   const { user } = useSelector((state) => state.auth);
 
   const [query, setQuery] = useState("");
+  const [menuOpen, setMenuOpen] = useState(false);
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -57,37 +59,55 @@ export default function Navbar() {
             onChange={(e) => setQuery(e.target.value)}
           />
         </form>
-        <ul id="nav-links">
+
+        <div className="menu-toggle" onClick={() => setMenuOpen(!menuOpen)}>
+          <BsList />
+        </div>
+        <ul id="nav-links" className={menuOpen ? "active" : ""}>
           {auth ? (
             <>
               <li>
-                <NavLink to="/">
+                <NavLink to="/" onClick={() => setMenuOpen(false)}>
                   <BsHouseDoorFill />
                 </NavLink>
               </li>
               {user && (
                 <li>
-                  <NavLink to={`/users/${user._id}`}>
+                  <NavLink
+                    to={`/users/${user._id}`}
+                    onClick={() => setMenuOpen(false)}
+                  >
                     <BsFillCameraFill />
                   </NavLink>
                 </li>
               )}
               <li>
-                <NavLink to="/profile">
+                <NavLink to="/profile" onClick={() => setMenuOpen(false)}>
                   <BsFillPersonFill />
                 </NavLink>
               </li>
               <li>
-                <span onClick={handleLogout}>Sair</span>
+                <span
+                  onClick={() => {
+                    handleLogout();
+                    setMenuOpen(false);
+                  }}
+                >
+                  Sair
+                </span>
               </li>
             </>
           ) : (
             <>
               <li>
-                <NavLink to="/login">Entrar</NavLink>
+                <NavLink to="/login" onClick={() => setMenuOpen(false)}>
+                  Entrar
+                </NavLink>
               </li>
               <li>
-                <NavLink to="/register">Cadastrar</NavLink>
+                <NavLink to="/register" onClick={() => setMenuOpen(false)}>
+                  Cadastrar
+                </NavLink>
               </li>
             </>
           )}
