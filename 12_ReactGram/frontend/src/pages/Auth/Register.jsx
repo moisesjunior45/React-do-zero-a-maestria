@@ -2,7 +2,7 @@ import "./Auth.css";
 
 // Components
 import { Link, Links } from "react-router-dom";
-import Message from "../../components/Message/Message";
+import Message from "../../components/Message/message";
 
 // Hooks
 import { useEffect, useState } from "react";

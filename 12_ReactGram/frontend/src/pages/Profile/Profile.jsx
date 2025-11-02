@@ -1,9 +1,9 @@
-import "./Profile.css";
+import "./profile.css";
 
 import { uploads } from "../../utils/config";
 
 // components
-import Message from "../../components/Message/Message";
+import Message from "../../components/Message/message";
 import { Link } from "react-router-dom";
 import { BsFillEyeFill, BsPencilFill, BsXLg } from "react-icons/bs";
 

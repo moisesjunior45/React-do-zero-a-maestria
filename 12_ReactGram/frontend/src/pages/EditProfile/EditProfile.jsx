@@ -1,4 +1,4 @@
-import "./EditProfile.css";
+import "./editProfile.css";
 
 import { uploads } from "../../utils/config";
 import { updateProfile } from "../../slices/userSlice";
@@ -11,7 +11,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { profile, resetMessage } from "../../slices/userSlice";
 
 // Components
-import Message from "../../components/Message/Message";
+import Message from "../../components/Message/message";
 
 export default function EditProfile() {
   const dispatch = useDispatch();

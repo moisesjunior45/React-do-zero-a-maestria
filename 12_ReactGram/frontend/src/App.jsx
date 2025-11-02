@@ -7,17 +7,17 @@ import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { useAuth } from "./hooks/useAuth";
 
 // Components
-import Navbar from "./components/NavBar/Navbar";
-import Footer from "./components/Footer/Footer";
+import Navbar from "./components/Navbar/navbar";
+import Footer from "./components/Footer/footer";
 
 // Pages
-import Home from "./pages/Home/Home";
+import Home from "./pages/Home/home";
 import Login from "./pages/Auth/Login";
 import Register from "./pages/Auth/Register";
-import EditProfile from "./pages/EditProfile/EditProfile";
-import Profile from "./pages/Profile/Profile";
-import Photo from "./pages/Photo/Photo";
-import Search from "./pages/Search/Search";
+import EditProfile from "./pages/EditProfile/editProfile";
+import Profile from "./pages/Profile/profile";
+import Photo from "./pages/Photo/photo";
+import Search from "./pages/Search/search";
 
 function App() {
   const { auth, loading } = useAuth();

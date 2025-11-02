@@ -1,4 +1,4 @@
-import "./LikeContainer.css";
+import "./likeContainer.css";
 
 import { BsHeart, BsHeartFill } from "react-icons/bs";
 

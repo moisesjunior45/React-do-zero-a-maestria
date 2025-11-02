@@ -1,8 +1,8 @@
-import "./Home.css";
+import "./home.css";
 
 // Componentes
-import LikeContainer from "../../components/LikeContainer/LikeContainer";
-import PhotoItem from "../../components/PhotoItem/PhotoItem";
+import LikeContainer from "../../components/LikeContainer/likeContainer";
+import PhotoItem from "../../components/PhotoItem/photoItem";
 import { Link } from "react-router-dom";
 
 // hooks
